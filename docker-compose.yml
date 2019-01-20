@@ -1,0 +1,19 @@
+version: '3.1'
+services:
+  piping:
+    image: nwtgck/piping-server:v0.8.0
+    restart: always
+    expose:
+      - "80"
+      - "443"
+    command: --http-port=80 --enable-https --https-port=443 --key-path=/ssl_certs/server.key --crt-path=/ssl_certs/server.crt
+    volumes:
+      - ./docker_volumes/ssl_certs:/ssl_certs
+
+  tor:
+    build: tor_for_piping_server
+    depends_on:
+      - piping
+    restart: always
+    volumes:
+      - ./docker_volumes/tor_hidden_service:/var/lib/tor/hidden_service

@@ -1,5 +1,7 @@
 # piping-server-hidden-service-docker-compose
-[Piping server](https://github.com/nwtgck/piping-server) as [Tor](https://www.torproject.org/) Hidden Service
+[![CircleCI](https://circleci.com/gh/nwtgck/piping-server-hidden-service-docker-compose.svg?style=shield)](https://circleci.com/gh/nwtgck/piping-server-hidden-service-docker-compose)
+
+[Piping Server](https://github.com/nwtgck/piping-server) as [Tor](https://www.torproject.org/) Hidden Service
 
 ![Piping on Tor](demo_images/piping_on_tor.gif)
 

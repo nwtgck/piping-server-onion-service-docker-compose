@@ -12,8 +12,8 @@ Here is how to run Piping server as Tor Hidden Service.
 ```bash
 # Go to this repo
 cd <this repo>
-# Create SSL certs and Initialize "tor_hidden_service" for docker volume sharing
-./create_ssl_certs_and_init_hidden_service_dir.sh
+# Create SSL certs for docker volume sharing
+./create_ssl_certs.sh
 # Run the server
 docker-compose up
 ```

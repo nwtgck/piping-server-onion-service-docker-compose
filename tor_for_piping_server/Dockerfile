@@ -7,4 +7,8 @@ RUN apk --no-cache add tor
 
 ENTRYPOINT [ "sh" ]
 # NOTE: The order of chown and su is important
-CMD [ "-c", "chown -R tor /var/lib/tor/ && su -s /bin/sh tor -c tor" ]
+CMD [ "-c", \
+      "chmod -R go-rwx /var/lib/tor/ && \
+      chown -R tor /var/lib/tor/ && \
+      su -s /bin/sh tor -c tor" \
+    ]

@@ -1,0 +1,25 @@
+version: 2
+jobs:
+  build:
+    machine: true
+    steps:
+      # Install tor
+      - run: sudo apt update && sudo apt install -y tor
+      - checkout
+      # Check whether a working-test is successful or not
+      - run:
+          name: Working test
+          command: |
+            set -x
+            # Run tor in background
+            tor &
+            # Build images (to shorten time in docker-compose up)
+            docker-compose build
+            # Initialize for server
+            ./create_ssl_certs_and_init_hidden_service_dir.sh
+            # Run server
+            docker-compose up -d
+            # Wait for server running
+            sleep 5
+
+            cat docker_volumes/tor_hidden_service/hostname

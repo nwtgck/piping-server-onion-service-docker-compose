@@ -1,1 +1,2 @@
-/docker_volumes
+/docker_volumes/ssl_certs
+/docker_volumes/tor_hidden_service

@@ -17,3 +17,4 @@ services:
     restart: always
     volumes:
       - ./docker_volumes/tor_hidden_service:/var/lib/tor/hidden_service
+      - ./docker_volumes/torrc:/etc/tor/torrc

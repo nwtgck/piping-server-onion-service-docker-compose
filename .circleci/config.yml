@@ -1,7 +1,9 @@
 version: 2
 jobs:
   build:
-    machine: true
+    machine:
+      # (base: https://circleci.com/docs/2.0/configuration-reference/#machine)
+      image: ubuntu-1604:201903-01
     steps:
       - run:
           name: Install Tor

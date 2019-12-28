@@ -1,13 +1,13 @@
-# piping-server-hidden-service-docker-compose
-[![CircleCI](https://circleci.com/gh/nwtgck/piping-server-hidden-service-docker-compose.svg?style=shield)](https://circleci.com/gh/nwtgck/piping-server-hidden-service-docker-compose)
+# piping-server-onion-service-docker-compose
+[![CircleCI](https://circleci.com/gh/nwtgck/piping-server-onion-service-docker-compose.svg?style=shield)](https://circleci.com/gh/nwtgck/piping-server-onion-service-docker-compose)
 
-[Piping Server](https://github.com/nwtgck/piping-server) as [Tor](https://www.torproject.org/) Hidden Service
+[Piping Server](https://github.com/nwtgck/piping-server) as [Onion Service](https://2019.www.torproject.org/docs/onion-services.html.en)
 
 ![Piping on Tor](demo_images/piping_on_tor.gif)
 
 ## Run server
 
-Here is how to run Piping server as Tor Hidden Service.
+Here is how to run Piping Server as Onion Service.
 
 ```bash
 # Go to this repo

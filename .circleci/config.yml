@@ -11,6 +11,9 @@ jobs:
             set -x
             # (NOTE: Avoid an error, E: Could not get lock /var/lib/apt/lists/lock - open (11: Resource temporarily unavailable))
             sudo rm -f /var/lib/apt/lists/lock
+            # To avoid an error: "E: The repository 'http://dl.google.com/linux/chrome/deb stable InRelease' is not signed."
+            # (from: https://askubuntu.com/a/771551/884249)
+            wget -q -O - https://dl-ssl.google.com/linux/linux_signing_key.pub | sudo apt-key add -
             sudo apt update
             sudo apt install -y apt-transport-https
             sudo sh -c 'echo "\ndeb https://deb.torproject.org/torproject.org xenial main\ndeb-src https://deb.torproject.org/torproject.org xenial main" >> /etc/apt/sources.list'

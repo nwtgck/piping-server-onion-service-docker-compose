@@ -10,8 +10,3 @@ updates:
   - nwtgck
   assignees:
   - nwtgck
-  ignore:
-  - dependency-name: alpine
-    versions:
-    - 3.13.2
-    - 3.13.4

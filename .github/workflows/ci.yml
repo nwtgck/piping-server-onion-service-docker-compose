@@ -3,30 +3,41 @@ name: CI
 on: [push, pull_request]
 
 jobs:
-  build:
-    runs-on: ubuntu-18.04
+  operational_test:
+    runs-on: ubuntu-20.04
     steps:
     - uses: actions/checkout@v2
     - run: sudo apt install -y tor
     - run: tor --version
     - name: Run tor in background
       run: tor &
-    - name: Operational test
+    - name: Run onion service
       run: |
-        # Build images (to shorten time in docker-compose up)
+        set -eux
+         # Build images (to shorten time in docker-compose up)
         docker-compose build
         # Create SSL certificates
         ./create_ssl_certs.sh
         # Run server
         docker-compose up -d
-        # Wait for server running and hidden service spreading
-        # (NOTE: bash loop doesn't sleep well: for sec in $(seq 30 1) ; do  echo "Remaining $sec sec..."; sleep 1; done)
-        ruby -e '60.downto(1){|s| puts "Remaining #{s} sec..."; sleep 1}'
-
-        # Get hidden service host
-        # (FIXME: Not use sudo)
+    - name: Wait for onion service to be available
+      run: |
+        set +o errexit
+        # Get onion service host
         server_host=$(sudo cat docker_volumes/tor_hidden_service/hostname)
-
+        while true; do
+          torsocks curl -sS ${server_host}/version
+          if [ $? = "0" ]; then
+            break
+          fi
+          sleep 2
+        done
+      timeout-minutes: 2
+    - name: Operational test
+      run: |
+        # Get onion service host
+        server_host=$(sudo cat docker_volumes/tor_hidden_service/hostname)
+        
         # Get help
         torsocks curl ${server_host}/help
 

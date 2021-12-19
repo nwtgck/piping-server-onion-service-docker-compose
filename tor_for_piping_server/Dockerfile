@@ -1,6 +1,6 @@
 FROM alpine:3.14.0
 
-LABEL maintainer="Ryo Ota <nwtgck@gmail.com>"
+LABEL maintainer="Ryo Ota <nwtgck@nwtgck.org>"
 
 # Install Tor
 RUN apk --no-cache add tor

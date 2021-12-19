@@ -40,6 +40,8 @@ jobs:
         
         # Get help
         torsocks curl ${server_host}/help
+        # Get help in HTTPS
+        torsocks curl -k https://${server_host}/help
 
         # Create a file to send
         echo 'hello, world' > /tmp/hello.txt

@@ -1,5 +1,5 @@
 # piping-server-onion-service-docker-compose
-[![CircleCI](https://circleci.com/gh/nwtgck/piping-server-onion-service-docker-compose.svg?style=shield)](https://circleci.com/gh/nwtgck/piping-server-onion-service-docker-compose)
+[![CI](https://github.com/nwtgck/piping-server-onion-service-docker-compose/actions/workflows/ci.yml/badge.svg)](https://github.com/nwtgck/piping-server-onion-service-docker-compose/actions/workflows/ci.yml)  
 
 [Piping Server](https://github.com/nwtgck/piping-server) as [Onion Service](https://2019.www.torproject.org/docs/onion-services.html.en)
 

@@ -1,0 +1,45 @@
+name: CI
+
+on: [push, pull_request]
+
+jobs:
+  build:
+    runs-on: ubuntu-18.04
+    steps:
+    - uses: actions/checkout@v2
+    - run: sudo apt install -y tor
+    - run: tor --version
+    - name: Run tor in background
+      run: tor &
+    - name: Operational test
+      run: |
+        # Build images (to shorten time in docker-compose up)
+        docker-compose build
+        # Create SSL certificates
+        ./create_ssl_certs.sh
+        # Run server
+        docker-compose up -d
+        # Wait for server running and hidden service spreading
+        # (NOTE: bash loop doesn't sleep well: for sec in $(seq 30 1) ; do  echo "Remaining $sec sec..."; sleep 1; done)
+        ruby -e '60.downto(1){|s| puts "Remaining #{s} sec..."; sleep 1}'
+
+        # Get hidden service host
+        # (FIXME: Not use sudo)
+        server_host=$(sudo cat docker_volumes/tor_hidden_service/hostname)
+
+        # Get help
+        torsocks curl ${server_host}/help
+
+        # Create a file to send
+        echo 'hello, world' > /tmp/hello.txt
+        # Send and wait for a receiver
+        torsocks curl -T /tmp/hello.txt ${server_host}/mypath &
+        # Get data as a file
+        torsocks curl ${server_host}/mypath > /tmp/download.txt
+        # Print downloaded file
+        cat  /tmp/download.txt
+        # Test the equality
+        diff /tmp/hello.txt /tmp/download.txt
+
+        # Print server's log
+        docker-compose logs
